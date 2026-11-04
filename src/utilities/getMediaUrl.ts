@@ -11,9 +11,14 @@
 export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | null): string => {
   if (!url) return ''
 
+  let normalizedUrl = url
+  if (normalizedUrl.startsWith('/api/media/file/')) {
+    normalizedUrl = normalizedUrl.replace('/api/media/file/', '/media/')
+  }
+
   if (cacheTag && cacheTag !== '') {
     cacheTag = encodeURIComponent(cacheTag)
   }
 
-  return cacheTag ? `${url}?${cacheTag}` : url
+  return cacheTag ? `${normalizedUrl}?${cacheTag}` : normalizedUrl
 }

@@ -1,9 +1,10 @@
-import { HeaderClient } from './Component.client'
+import { BottomDockNavigation } from '@/components/BottomDockNavigation'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import React from 'react'
 
 export async function Header() {
-  const headerData = await getCachedGlobal('header', 1)()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const headerData: any = await getCachedGlobal('header', 1)()
 
-  return <HeaderClient data={headerData} />
+  return <BottomDockNavigation data={headerData} />
 }

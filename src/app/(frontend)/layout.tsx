@@ -1,9 +1,17 @@
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
+import { Oswald } from 'next/font/google'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import React from 'react'
+
+const oswald = Oswald({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-oswald',
+  display: 'swap',
+})
 
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
@@ -20,13 +28,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(GeistSans.variable, GeistMono.variable, oswald.variable, 'scroll-smooth')}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body>
+      <body className="relative">
         <Providers>
           <AdminBar
             adminBarProps={{
@@ -34,9 +46,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
 
-          <Header />
           {children}
-          <Footer />
+          {/* <Footer />
+          <Header /> */}
         </Providers>
       </body>
     </html>

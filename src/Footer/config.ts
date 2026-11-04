@@ -1,6 +1,5 @@
 import type { GlobalConfig } from 'payload'
 
-import { link } from '@/fields/link'
 import { revalidateFooter } from './hooks/revalidateFooter'
 
 export const Footer: GlobalConfig = {
@@ -10,20 +9,87 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
-      name: 'navItems',
+      name: 'name',
+      type: 'text',
+      defaultValue: 'Mahmoud Moumen',
+      label: 'Name',
+    },
+    {
+      name: 'role',
+      type: 'text',
+      defaultValue: 'UX Designer',
+      label: 'Role / Designation',
+    },
+    {
+      name: 'avatar',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Avatar Photo',
+    },
+    {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Landscape Background Image',
+    },
+    {
+      name: 'socialLinks',
       type: 'array',
-      fields: [
-        link({
-          appearances: false,
-        }),
+      label: 'Social Links',
+      defaultValue: [
+        { platform: 'twitter', url: 'https://x.com' },
+        { platform: 'facebook', url: 'https://facebook.com' },
+        { platform: 'instagram', url: 'https://instagram.com' },
+        { platform: 'linkedin', url: 'https://linkedin.com' },
       ],
-      maxRows: 6,
-      admin: {
-        initCollapsed: true,
-        components: {
-          RowLabel: '@/Footer/RowLabel#RowLabel',
+      fields: [
+        {
+          name: 'platform',
+          type: 'select',
+          defaultValue: 'twitter',
+          options: [
+            { label: 'Twitter / X', value: 'twitter' },
+            { label: 'Facebook', value: 'facebook' },
+            { label: 'Instagram', value: 'instagram' },
+            { label: 'LinkedIn', value: 'linkedin' },
+            { label: 'GitHub', value: 'github' },
+            { label: 'Dribbble', value: 'dribbble' },
+          ],
         },
-      },
+        {
+          name: 'url',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'copyright',
+      type: 'text',
+      defaultValue: '© 2026 Mahmoud. All rights reserved.',
+      label: 'Copyright Text',
+    },
+    {
+      name: 'legalLinks',
+      type: 'array',
+      label: 'Legal Links (Bottom Right)',
+      defaultValue: [
+        { label: 'Privacy Policy', url: '#' },
+        { label: 'Terms of Service', url: '#' },
+        { label: 'Security', url: '#' },
+      ],
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'url',
+          type: 'text',
+          required: true,
+        },
+      ],
     },
   ],
   hooks: {
